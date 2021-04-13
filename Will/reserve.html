@@ -8,7 +8,9 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body>
+<body>    
+
+
     <div class="jumbotron">
         <h1 class="text-center"> Hot Restaurant </h1>
         <h3 class="text-center"> Make your Reservation </h3> 
@@ -50,6 +52,45 @@
         </p>
     </div>
 </footer>
+      
+      
+    <script>
+        const submitBtn = document.getElementbyId('submit-btn');
+
+        submitBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            let customerName = document.getElementbyId('reserve-name').value.trim();
+            let phoneNumber = document.getElementbyId('reserve-phone').value.trim();
+            let email = document.getElementbyId('reserve-email').value.trim();
+            let id = document.getElementbyId('reserve-unique-id').value.trim();
+
+            let newTable = {
+                customerName: customerName,
+                phoneNumber: phoneNumber,
+                email: email,
+                id: id,
+            }
+
+        fetch('/api/table', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newTable),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log('reserve.html', data)
+            alert(`Reserving Your Table, ${data.customerName}`)
+        })
+        .catch((error) => 'Error:', error);
+
+        })
+
+
+
+    </script> 
 
 
 </body>
